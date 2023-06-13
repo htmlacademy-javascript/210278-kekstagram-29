@@ -6,9 +6,11 @@ function lengthCheck (input, maxLength) {
   return lengthResult;
 }
 
-console.log(lengthCheck('Всем добрый вечер ', 10));
-console.log(lengthCheck('Всем добрый вечер ', 18));
-console.log(lengthCheck('Всем добрый вечер ', 20));
+lengthCheck('Доброго всем вечера', 20);
+
+//console.log(lengthCheck('Всем добрый вечер ', 10));
+//console.log(lengthCheck('Всем добрый вечер ', 18));
+//console.log(lengthCheck('Всем добрый вечер ', 20));
 
 //Функция проверки палиндрома
 
@@ -26,7 +28,9 @@ function palindromeCheck (input) {
   return palindromeResult;
 }
 
-console.log(palindromeCheck('топот'));
-console.log(palindromeCheck('ДовОд'));
-console.log(palindromeCheck('Кекс'));
-console.log(palindromeCheck('Лёша на полке клопа нашёл '));
+palindromeCheck('Топор');
+
+//console.log(palindromeCheck('топот'));
+//console.log(palindromeCheck('ДовОд'));
+//console.log(palindromeCheck('Кекс'));
+//console.log(palindromeCheck('Лёша на полке клопа нашёл '));
