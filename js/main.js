@@ -79,5 +79,5 @@ function getRandomComments(length) {
   return comments;
 }
 
-const result = generateObjects();
+// const result = generateObjects();
 // console.log(result);
