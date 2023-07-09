@@ -1,3 +1,3 @@
-import {generateObjects} from './utils.js';
+import {viewMiniatures} from './miniatures.js';
 
-generateObjects();
+viewMiniatures();
