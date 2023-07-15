@@ -56,8 +56,7 @@ function showBatchComments(currentObject, startIndex, socialComment) {
 
   if(startIndex + pageSize <= currentObject.comments.length) {
     endIndex = startIndex + pageSize;
-  }
-  else {
+  } else {
     endIndex = currentObject.comments.length;
   }
 
@@ -82,8 +81,7 @@ function showBatchComments(currentObject, startIndex, socialComment) {
   const commentsLoader = document.querySelector('.comments-loader');
   if(endIndex >= currentObject.comments.length) {
     commentsLoader.classList.add('hidden');
-  }
-  else {
+  } else {
     commentsLoader.classList.remove('hidden');
   }
 
