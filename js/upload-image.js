@@ -2,7 +2,7 @@ function initUploadImg() {
   const loadButton = document.querySelector('.img-upload__input');
   const uploadEditor = document.querySelector('.img-upload__overlay');
   const body = document.querySelector('body');
-  const cancel = document.querySelector('.img-upload__cancel');x
+  const cancel = document.querySelector('.img-upload__cancel');
   const form = document.querySelector('.img-upload__form');
 
   loadButton.addEventListener('change', () => {

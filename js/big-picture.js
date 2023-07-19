@@ -1,4 +1,4 @@
-import {viewPicture} from "./picture.js";
+import {viewPicture} from './picture.js';
 
 function viewBigPicture(objects) {
   const bigPictures = document.querySelectorAll('.picture');
