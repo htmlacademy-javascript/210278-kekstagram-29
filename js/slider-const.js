@@ -52,4 +52,4 @@ const SLIDER_CONST = new Map([
   }]
 ]);
 
-export { SLIDER_CONST }
+export {SLIDER_CONST}

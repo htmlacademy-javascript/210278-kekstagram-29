@@ -125,7 +125,7 @@ function initUploadImg() {
 
       document.querySelector('.img-upload__effect-level').classList.remove('hidden');
 
-      let options = SLIDER_CONST.get(currentRadio);
+      const options = SLIDER_CONST.get(currentRadio);
 
       sliderElement.noUiSlider.updateOptions(options);
 
@@ -139,7 +139,6 @@ function initUploadImg() {
 
         preview.style.filter = `${options.filter}(${val}${options.unit})`;
       });
-
     })
   }
 }
@@ -147,13 +146,13 @@ function initUploadImg() {
 function updateScale(scaleSize) {
   const scaleValueElement = document.querySelector('.scale__control--value');
 
-  let currentValue = scaleValueElement.textContent;
+  let currentValue = parseInt(scaleValueElement.textContent);
 
   if(scaleValueElement.textContent === '') {
     currentValue = 100;
   }
 
-  currentValue = parseInt(currentValue) + scaleSize;
+  currentValue = currentValue + scaleSize;
 
   if(currentValue < 25 || currentValue > 100) {
     return;
@@ -164,7 +163,7 @@ function updateScale(scaleSize) {
 
   const preview = document.querySelector('.img-upload__preview');
 
-  preview.style.transform = `scale(${currentValue/100})`;
+  preview.style.transform = `scale(${currentValue / 100})`;
 }
 
 function hiddenSlider() {
