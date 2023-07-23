@@ -139,14 +139,14 @@ function initUploadImg() {
 
         preview.style.filter = `${options.filter}(${val}${options.unit})`;
       });
-    })
+    });
   }
 }
 
 function updateScale(scaleSize) {
   const scaleValueElement = document.querySelector('.scale__control--value');
 
-  let currentValue = parseInt(scaleValueElement.textContent);
+  let currentValue = parseInt(scaleValueElement.textContent, 10);
 
   if(scaleValueElement.textContent === '') {
     currentValue = 100;
