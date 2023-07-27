@@ -14,7 +14,7 @@ const viewMiniatures = (objects) => {
 
     img.setAttribute('src', objects[i].url);
     img.setAttribute('alt', objects[i].description);
-    img.setAttribute('id', objects[i].id)
+    img.setAttribute('id', objects[i].id);
 
     const likes = element.querySelector('.picture__likes');
     likes.textContent = objects[i].likes;
@@ -28,7 +28,9 @@ const viewMiniatures = (objects) => {
   pictures.appendChild(docFragment);
 
   const onListClick = function (evt) {
-    const currentObject = objects.find(function (item) { return item.id === parseInt(evt.target.id); });
+    const currentObject = objects.find(function (item) {
+      return item.id === parseInt(evt.target.id, 10);
+    });
 
     viewPicture(currentObject);
   }

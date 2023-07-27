@@ -24,7 +24,7 @@ const validateCorrectSimbol = (values) => {
   }
 
   return true;
-}
+};
 
 const validateUniqueValue = (values) => {
   const tags = values.trim().split(' ');
@@ -32,12 +32,12 @@ const validateUniqueValue = (values) => {
   const set = new Set(tags);
 
   return set.size === tags.length;
-}
+};
 
 const validateMaxCountValue = (values) => {
   const tags = values.trim().split(' ');
 
   return tags.length <= MAX_COUNT_TAGS;
-}
+};
 
 export {validateStartSimbol, validateCorrectSimbol, validateUniqueValue, validateMaxCountValue};

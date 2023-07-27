@@ -1,4 +1,4 @@
-import {showErrorNotification} from './notification.js';
+import {showSuccessNotification, showErrorNotification} from './notification.js';
 
 const ErrorText = {
   GET_DATA: 'Не удалось загрузить данные',
@@ -7,12 +7,8 @@ const ErrorText = {
 
 const getPosts = (onSuccess) =>
   fetch('https://29.javascript.pages.academy/kekstagram/data')
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      onSuccess(data);
-    })
+    .then((response) => response.json())
+    .then((data) => onSuccess(data))
     .catch(() => {
       showErrorNotification(ErrorText.GET_DATA);
     });
@@ -30,8 +26,6 @@ const setPost = (data, onSuccess) =>
         showErrorNotification(ErrorText.SEND_DATA);
       }
     })
-    .catch((err) => {
-      showErrorNotification(ErrorText.SEND_DATA);
-    });
+    .catch(() => showErrorNotification(ErrorText.SEND_DATA));
 
 export {getPosts, setPost};

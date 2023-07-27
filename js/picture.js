@@ -3,7 +3,6 @@ import {viewModal} from './modal.js';
 const socialComment = document.querySelector('.social__comment').cloneNode(true);
 
 const viewPicture = (currentObject) => {
-  console.log('sdf');
   viewModal();
 
   const img = document.querySelector('.big-picture__img img');
@@ -22,13 +21,12 @@ const viewPicture = (currentObject) => {
     updateCommentStatistics(visibleCount, currentObject.comments.length);
   });
 
-
   const commentsElement = document.querySelector('.social__comments');
 
   commentsElement.innerHTML = '';
   visibleCount = showBatchComments(currentObject, 0);
   updateCommentStatistics(visibleCount, currentObject.comments.length);
-}
+};
 
 function showBatchComments(currentObject, startIndex) {
   const pageSize = 5;

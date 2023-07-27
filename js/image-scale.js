@@ -22,6 +22,6 @@ const updateScale = (scaleSize) => {
   const preview = document.querySelector('.img-upload__preview');
 
   preview.style.transform = `scale(${currentValue / MAX_SIZE})`;
-}
+};
 
 export {updateScale};

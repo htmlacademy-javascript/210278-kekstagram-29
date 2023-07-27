@@ -18,7 +18,7 @@ const showSuccessNotification = () => {
   const docFragment = document.createDocumentFragment();
   docFragment.appendChild(element);
   document.querySelector('body').appendChild(docFragment);
-}
+};
 
 const showErrorNotification = (err) => {
   const template = document.querySelector('#error').content;
@@ -43,6 +43,6 @@ const showErrorNotification = (err) => {
   const docFragment = document.createDocumentFragment();
   docFragment.appendChild(element);
   document.querySelector('body').appendChild(docFragment);
-}
+};
 
 export {showSuccessNotification, showErrorNotification};
