@@ -3,6 +3,34 @@ import {setPost} from './api.js';
 import {validateStartSimbol, validateCorrectSimbol, validateUniqueValue, validateMaxCountValue} from './validate-functions.js';
 import {updateScale} from './image-scale.js';
 
+const onChangeEffect = (effectsRadio, sliderElement) => {
+  const preview = document.querySelector('.img-upload__preview');
+  const currentRadio = effectsRadio.value;
+
+  if(currentRadio === 'none') {
+    document.querySelector('.img-upload__effect-level').classList.add('hidden');
+    preview.style.filter = '';
+    return;
+  }
+
+  document.querySelector('.img-upload__effect-level').classList.remove('hidden');
+
+  const options = SLIDER_CONST_MAP.get(currentRadio);
+
+  sliderElement.noUiSlider.updateOptions(options);
+
+  const sliderValueElement = document.querySelector('.effect-level__value');
+
+  sliderElement.noUiSlider.on('update', () => {
+    const val = parseFloat(sliderElement.noUiSlider.get());
+
+    sliderValueElement.setAttribute('value', `${val}%`);
+    sliderValueElement.textContent = val;
+
+    preview.style.filter = `${options.filter}(${val}${options.unit})`;
+  });
+};
+
 function initUploadImg() {
   const loadButton = document.querySelector('.img-upload__input');
   const uploadEditor = document.querySelector('.img-upload__overlay');
@@ -82,41 +110,13 @@ function initUploadImg() {
   }
 }
 
-const onChangeEffect = (effectsRadio, sliderElement) => {
-  const preview = document.querySelector('.img-upload__preview');
-  const currentRadio = effectsRadio.value;
-
-  if(currentRadio === 'none') {
-    document.querySelector('.img-upload__effect-level').classList.add('hidden');
-    preview.style.filter = '';
-    return;
-  }
-
-  document.querySelector('.img-upload__effect-level').classList.remove('hidden');
-
-  const options = SLIDER_CONST_MAP.get(currentRadio);
-
-  sliderElement.noUiSlider.updateOptions(options);
-
-  const sliderValueElement = document.querySelector('.effect-level__value');
-
-  sliderElement.noUiSlider.on('update', () => {
-    const val = parseFloat(sliderElement.noUiSlider.get());
-
-    sliderValueElement.setAttribute('value', `${val}%`);
-    sliderValueElement.textContent = val;
-
-    preview.style.filter = `${options.filter}(${val}${options.unit})`;
-  });
-}
-
 function hiddenSlider() {
   const preview = document.querySelector('.img-upload__preview');
   preview.style.transform = '';
   document.querySelector('.img-upload__effect-level').classList.add('hidden');
 }
 
-function hiddenForm() {
+const hiddenForm = () => {
   const uploadEditor = document.querySelector('.img-upload__overlay');
   const body = document.querySelector('body');
   const form = document.querySelector('.img-upload__form');
@@ -124,7 +124,7 @@ function hiddenForm() {
   uploadEditor.classList.add('hidden');
   body.classList.remove('modal-open');
   form.reset();
-}
+};
 
 const onSendSuccess = () => {
   hiddenForm();

@@ -21,6 +21,7 @@ const setPost = (data, onSuccess) =>
     })
     .then((response) => {
       if (response.ok) {
+        onSuccess();
         showSuccessNotification();
       } else {
         showErrorNotification(ErrorText.SEND_DATA);

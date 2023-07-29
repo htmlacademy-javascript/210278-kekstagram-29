@@ -18,6 +18,6 @@ const viewModal = () => {
     body.classList.remove('modal-open');
     modal.classList.add('hidden');
   });
-}
+};
 
 export {viewModal};
