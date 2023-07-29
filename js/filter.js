@@ -35,12 +35,12 @@ const shuffleArray = (array) => {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
-}
+};
 
 const onRandomFilterClick = (evt) => {
   updateActiveStatus(evt.target);
 
-  let randomizeObjects = savedObjects.slice(0, savedObjects.length);
+  const randomizeObjects = savedObjects.slice(0, savedObjects.length);
   shuffleArray(randomizeObjects);
 
   viewMiniatures(randomizeObjects.slice(0, RANDOM_COUNT));
@@ -49,7 +49,7 @@ const onRandomFilterClick = (evt) => {
 const onDiscussedFilterClick = (evt) => {
   const sortedObjects = savedObjects.slice(0, savedObjects.length);
 
-  sortedObjects.sort(function (a, b) {
+  sortedObjects.sort((a, b) => {
     if (a.comments.length < b.comments.length) {
       return 1;
     }

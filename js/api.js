@@ -9,7 +9,7 @@ const getPosts = (onSuccess) =>
   fetch('https://29.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
     .then((data) => {
-      onSuccess(data)
+      onSuccess(data);
       return data;
     })
     .catch(() => {

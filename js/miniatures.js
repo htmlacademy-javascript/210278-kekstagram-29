@@ -1,5 +1,4 @@
 import {viewPicture} from './picture.js';
-import {viewFilter} from './filter.js';
 
 const viewMiniatures = (objects) => {
   const onListClick = (evt) => {
