@@ -27,13 +27,13 @@ const viewMiniatures = (objects) => {
 
   pictures.appendChild(docFragment);
 
-  const onListClick = function (evt) {
+  const onListClick = (evt) => {
     const currentObject = objects.find(item => item.id === parseInt(evt.target.id, 10));
 
     viewPicture(currentObject);
   };
 
   pictures.addEventListener('click', onListClick);
-}
+};
 
 export {viewMiniatures};

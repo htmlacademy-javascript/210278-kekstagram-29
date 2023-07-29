@@ -31,7 +31,7 @@ const onChangeEffect = (effectsRadio, sliderElement) => {
   });
 };
 
-function initUploadImg() {
+const initUploadImg = () => {
   const loadButton = document.querySelector('.img-upload__input');
   const uploadEditor = document.querySelector('.img-upload__overlay');
   const body = document.querySelector('body');
@@ -108,13 +108,13 @@ function initUploadImg() {
   for(let i = 0; i < effectsRadios.length; i++) {
     effectsRadios[i].addEventListener('change', () => onChangeEffect(effectsRadios[i], sliderElement));
   }
-}
+};
 
-function hiddenSlider() {
+const hiddenSlider = () => {
   const preview = document.querySelector('.img-upload__preview');
   preview.style.transform = '';
   document.querySelector('.img-upload__effect-level').classList.add('hidden');
-}
+};
 
 const hiddenForm = () => {
   const uploadEditor = document.querySelector('.img-upload__overlay');
@@ -128,6 +128,6 @@ const hiddenForm = () => {
 
 const onSendSuccess = () => {
   hiddenForm();
-}
+};
 
 export {initUploadImg};
