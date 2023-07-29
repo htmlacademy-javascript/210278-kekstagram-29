@@ -3,6 +3,26 @@ import {setPost} from './api.js';
 import {validateStartSimbol, validateCorrectSimbol, validateUniqueValue, validateMaxCountValue} from './validate-functions.js';
 import {updateScale} from './image-scale.js';
 
+const hiddenSlider = () => {
+  const preview = document.querySelector('.img-upload__preview');
+  preview.style.transform = '';
+  document.querySelector('.img-upload__effect-level').classList.add('hidden');
+};
+
+const hiddenForm = () => {
+  const uploadEditor = document.querySelector('.img-upload__overlay');
+  const body = document.querySelector('body');
+  const form = document.querySelector('.img-upload__form');
+
+  uploadEditor.classList.add('hidden');
+  body.classList.remove('modal-open');
+  form.reset();
+};
+
+const onSendSuccess = () => {
+  hiddenForm();
+};
+
 const onChangeEffect = (effectsRadio, sliderElement) => {
   const preview = document.querySelector('.img-upload__preview');
   const currentRadio = effectsRadio.value;
@@ -108,26 +128,6 @@ const initUploadImg = () => {
   for(let i = 0; i < effectsRadios.length; i++) {
     effectsRadios[i].addEventListener('change', () => onChangeEffect(effectsRadios[i], sliderElement));
   }
-};
-
-const hiddenSlider = () => {
-  const preview = document.querySelector('.img-upload__preview');
-  preview.style.transform = '';
-  document.querySelector('.img-upload__effect-level').classList.add('hidden');
-};
-
-const hiddenForm = () => {
-  const uploadEditor = document.querySelector('.img-upload__overlay');
-  const body = document.querySelector('body');
-  const form = document.querySelector('.img-upload__form');
-
-  uploadEditor.classList.add('hidden');
-  body.classList.remove('modal-open');
-  form.reset();
-};
-
-const onSendSuccess = () => {
-  hiddenForm();
 };
 
 export {initUploadImg};
