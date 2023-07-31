@@ -1,3 +1,5 @@
+// TODO: надо рефакторить
+
 const showSuccessNotification = () => {
   const template = document.querySelector('#success').content;
   const element = template.cloneNode(true);
@@ -5,15 +7,15 @@ const showSuccessNotification = () => {
   const successButton = element.querySelector('.success__button');
   const successElement = element.querySelector('.success');
 
-  const onCloseSuccessNotification = () => {
-    successButton.removeEventListener('click', onCloseSuccessNotification);
-    successElement.removeEventListener('click', onCloseSuccessNotification);
+  const onCloseSuccessNotificationClick = () => {
+    successButton.removeEventListener('click', onCloseSuccessNotificationClick);
+    successElement.removeEventListener('click', onCloseSuccessNotificationClick);
 
     successElement.remove();
   };
 
-  successButton.addEventListener('click', onCloseSuccessNotification);
-  successElement.addEventListener('click', onCloseSuccessNotification);
+  successButton.addEventListener('click', onCloseSuccessNotificationClick);
+  successElement.addEventListener('click', onCloseSuccessNotificationClick);
 
   const docFragment = document.createDocumentFragment();
   docFragment.appendChild(element);
@@ -30,15 +32,15 @@ const showErrorNotification = (err) => {
   const errorTitle = element.querySelector('.error__title');
   errorTitle.textContent = err;
 
-  const onCloseErrorNotification = () => {
-    errorButton.removeEventListener('click', onCloseErrorNotification);
-    errorElement.removeEventListener('click', onCloseErrorNotification);
+  const onCloseErrorNotificationClick = () => {
+    errorButton.removeEventListener('click', onCloseErrorNotificationClick);
+    errorElement.removeEventListener('click', onCloseErrorNotificationClick);
 
     errorElement.remove();
   };
 
-  errorButton.addEventListener('click', onCloseErrorNotification);
-  errorElement.addEventListener('click', onCloseErrorNotification);
+  errorButton.addEventListener('click', onCloseErrorNotificationClick);
+  errorElement.addEventListener('click', onCloseErrorNotificationClick);
 
   const docFragment = document.createDocumentFragment();
   docFragment.appendChild(element);

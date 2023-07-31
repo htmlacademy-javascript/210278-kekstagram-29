@@ -1,7 +1,11 @@
+// TODO: надо рефакторить
+
 import {viewMiniatures} from './miniatures.js';
 
 const TIMEOUT_DELAY = 500;
 const RANDOM_COUNT = 10;
+
+const allFilters = document.querySelectorAll('.img-filters__button');
 
 let savedObjects = [];
 
@@ -13,10 +17,14 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+};
 
 const updateActiveStatus = (element) => {
-  const allFilters = document.querySelectorAll('.img-filters__button');
-
   for (let i = 0; i < allFilters.length; i++) {
     allFilters[i].classList.remove('img-filters__button--active');
   }
@@ -28,13 +36,6 @@ const onDefaultFilterClick = (evt) => {
   updateActiveStatus(evt.target);
 
   viewMiniatures(savedObjects);
-};
-
-const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
 };
 
 const onRandomFilterClick = (evt) => {

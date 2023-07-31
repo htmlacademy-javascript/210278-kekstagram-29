@@ -1,3 +1,5 @@
+// TODO: надо рефакторить
+
 const MIN_SIZE = 25;
 const MAX_SIZE = 100;
 

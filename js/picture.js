@@ -1,3 +1,5 @@
+// TODO: надо рефакторить
+
 import {viewModal} from './modal.js';
 
 const socialComment = document.querySelector('.social__comment').cloneNode(true);

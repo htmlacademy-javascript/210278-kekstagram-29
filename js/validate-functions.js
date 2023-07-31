@@ -2,8 +2,12 @@ const START_SIMBOL = '#';
 const HASHTAG_REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COUNT_TAGS = 5;
 
+const splitString = (values) => {
+  return values.trim().split(' ').filter(value => value !== '');
+}
+
 const validateStartSimbol = (values) => {
-  const tags = values.trim().split(' ');
+  const tags = splitString();
 
   for(let i = 0; i < tags.length; i++) {
     if(tags[i] !== '' && tags[i][0] !== START_SIMBOL) {
@@ -15,10 +19,10 @@ const validateStartSimbol = (values) => {
 };
 
 const validateCorrectSimbol = (values) => {
-  const tags = values.trim().split(' ');
+  const tags = splitString();
 
   for(let i = 0; i < tags.length; i++) {
-    if(tags[i] !== '' && HASHTAG_REGEXP.test(tags[i]) === false) {
+    if(tags[i] !== '' && !HASHTAG_REGEXP.test(tags[i])) {
       return false;
     }
   }
@@ -27,17 +31,13 @@ const validateCorrectSimbol = (values) => {
 };
 
 const validateUniqueValue = (values) => {
-  const tags = values.trim().split(' ');
+  const tags = splitString();
 
   const set = new Set(tags);
 
   return set.size === tags.length;
 };
 
-const validateMaxCountValue = (values) => {
-  const tags = values.trim().split(' ');
-
-  return tags.length <= MAX_COUNT_TAGS;
-};
+const validateMaxCountValue = (values) => splitString().length <= MAX_COUNT_TAGS;
 
 export {validateStartSimbol, validateCorrectSimbol, validateUniqueValue, validateMaxCountValue};

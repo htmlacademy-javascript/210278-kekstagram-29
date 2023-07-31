@@ -1,7 +1,11 @@
+// TODO: надо рефакторить
+
 import {SLIDER_CONST_MAP} from './slider-const.js';
 import {setPost} from './api.js';
 import {validateStartSimbol, validateCorrectSimbol, validateUniqueValue, validateMaxCountValue} from './validate-functions.js';
 import {updateScale} from './image-scale.js';
+
+const sliderElement = document.querySelector('.effect-level__slider');
 
 const hiddenSlider = () => {
   const preview = document.querySelector('.img-upload__preview');
@@ -16,6 +20,10 @@ const hiddenForm = () => {
 
   uploadEditor.classList.add('hidden');
   body.classList.remove('modal-open');
+
+  hiddenSlider();
+
+  onChangeEffect({value: 'none'}, sliderElement);
   form.reset();
 };
 
@@ -114,7 +122,6 @@ const initUploadImg = () => {
     setPost(new FormData(evt.target), onSendSuccess);
   });
 
-  const sliderElement = document.querySelector('.effect-level__slider');
 
   noUiSlider.create(sliderElement, {
     range: {min: 10, max: 50},
@@ -128,6 +135,13 @@ const initUploadImg = () => {
   for(let i = 0; i < effectsRadios.length; i++) {
     effectsRadios[i].addEventListener('change', () => onChangeEffect(effectsRadios[i], sliderElement));
   }
+
+  const uploadFile = document.querySelector('#upload-file');
+  const preview = document.querySelector('.img-upload__preview img');
+
+  uploadFile.addEventListener('change', () => {
+      preview.src = URL.createObjectURL(uploadFile.files[0]);
+  });
 };
 
 export {initUploadImg};

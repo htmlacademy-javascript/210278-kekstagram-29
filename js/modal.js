@@ -1,3 +1,5 @@
+// TODO: надо рефакторить
+
 const viewModal = () => {
   const modal = document.querySelector('.big-picture');
   const body = document.querySelector('body');

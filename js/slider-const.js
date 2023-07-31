@@ -1,3 +1,5 @@
+// TODO: надо рефакторить
+
 const SLIDER_CONST_MAP = new Map([
   ['chrome',
     {
