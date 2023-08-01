@@ -40,6 +40,9 @@ const viewPicture = (currentObject) => {
   const comments = document.querySelector('.comments-count');
   comments.textContent = currentObject.comments.length;
 
+  const socialCaption = document.querySelector('.social__caption');
+  socialCaption.textContent = currentObject.description;
+
   let visibleCount = 0;
 
   document.querySelector('.comments-loader').addEventListener('click', () => {

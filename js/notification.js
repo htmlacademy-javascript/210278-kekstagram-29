@@ -1,3 +1,17 @@
+const onWindowClick = (evt, closeNotification) => {
+  if (!evt.target.closest('div')) {
+    closeNotification();
+  }
+};
+
+const onEscClick = (evt, closeNotification) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    evt.stopPropagation();
+    closeNotification();
+  }
+};
+
 const showSuccessNotification = () => {
   const template = document.querySelector('#success').content;
   const element = template.cloneNode(true);
@@ -5,15 +19,21 @@ const showSuccessNotification = () => {
   const successButton = element.querySelector('.success__button');
   const successElement = element.querySelector('.success');
 
-  const onCloseSuccessNotificationClick = () => {
+  const closeSuccessNotification = () => {
     successButton.removeEventListener('click', onCloseSuccessNotificationClick);
     successElement.removeEventListener('click', onCloseSuccessNotificationClick);
+    document.addEventListener('keydown', onEscClick);
 
     successElement.remove();
   };
 
+  const onCloseSuccessNotificationClick = () => {
+    closeSuccessNotification();
+  };
+
   successButton.addEventListener('click', onCloseSuccessNotificationClick);
-  successElement.addEventListener('click', onCloseSuccessNotificationClick);
+  window.addEventListener('click', (evt) => onWindowClick(evt, closeSuccessNotification));
+  document.addEventListener('keydown', (evt) => onEscClick(evt, closeSuccessNotification));
 
   const docFragment = document.createDocumentFragment();
   docFragment.appendChild(element);
@@ -30,15 +50,21 @@ const showErrorNotification = (err) => {
   const errorTitle = element.querySelector('.error__title');
   errorTitle.textContent = err;
 
-  const onCloseErrorNotificationClick = () => {
+  const closeErrorNotification = () => {
     errorButton.removeEventListener('click', onCloseErrorNotificationClick);
     errorElement.removeEventListener('click', onCloseErrorNotificationClick);
+    document.addEventListener('keydown', onEscClick, {capture: true});
 
     errorElement.remove();
   };
 
+  const onCloseErrorNotificationClick = () => {
+    closeErrorNotification();
+  };
+
   errorButton.addEventListener('click', onCloseErrorNotificationClick);
-  errorElement.addEventListener('click', onCloseErrorNotificationClick);
+  window.addEventListener('click', (evt) => onWindowClick(evt, closeErrorNotification));
+  document.addEventListener('keydown', (evt) => onEscClick(evt, closeErrorNotification), {capture: true});
 
   const docFragment = document.createDocumentFragment();
   docFragment.appendChild(element);
