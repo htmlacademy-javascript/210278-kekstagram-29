@@ -71,7 +71,7 @@ const viewFilter = (objects) => {
   const discussedFilterButton = document.querySelector('#filter-discussed');
 
   if(savedObjects !== undefined && savedObjects.length > 0) {
-  filter.classList.remove('img-filters--inactive');
+    filter.classList.remove('img-filters--inactive');
   }
 
   defaultFilterButton.addEventListener('click', (env) => onDefaultFilterClick(env));

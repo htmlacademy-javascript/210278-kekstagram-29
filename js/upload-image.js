@@ -36,8 +36,6 @@ const changeEffect = (effectsRadio, slider) => {
 
   slider.noUiSlider.on('update', () => {
     const val = slider.noUiSlider.get();
-
-    console.log(val);
     sliderValueElement.value = val;
 
     preview.style.filter = `${options.filter}(${val}${options.unit})`;
@@ -108,7 +106,6 @@ const initUploadImg = () => {
   const uploadEditor = document.querySelector('.img-upload__overlay');
   const body = document.querySelector('body');
   const cancel = document.querySelector('.img-upload__cancel');
-  const form = document.querySelector('.img-upload__form');
 
   const scaleSmaller = document.querySelector('.scale__control--smaller');
   const scaleBigger = document.querySelector('.scale__control--bigger');

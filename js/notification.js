@@ -19,16 +19,16 @@ const showSuccessNotification = () => {
   const successButton = element.querySelector('.success__button');
   const successElement = element.querySelector('.success');
 
+  const onCloseSuccessNotificationClick = () => {
+    closeSuccessNotification();
+  };
+
   const closeSuccessNotification = () => {
     successButton.removeEventListener('click', onCloseSuccessNotificationClick);
     successElement.removeEventListener('click', onCloseSuccessNotificationClick);
     document.addEventListener('keydown', onEscClick);
 
     successElement.remove();
-  };
-
-  const onCloseSuccessNotificationClick = () => {
-    closeSuccessNotification();
   };
 
   successButton.addEventListener('click', onCloseSuccessNotificationClick);
@@ -50,16 +50,16 @@ const showErrorNotification = (err) => {
   const errorTitle = element.querySelector('.error__title');
   errorTitle.textContent = err;
 
+  const onCloseErrorNotificationClick = () => {
+    closeErrorNotification();
+  };
+
   const closeErrorNotification = () => {
     errorButton.removeEventListener('click', onCloseErrorNotificationClick);
     errorElement.removeEventListener('click', onCloseErrorNotificationClick);
     document.addEventListener('keydown', onEscClick, {capture: true});
 
     errorElement.remove();
-  };
-
-  const onCloseErrorNotificationClick = () => {
-    closeErrorNotification();
   };
 
   errorButton.addEventListener('click', onCloseErrorNotificationClick);
