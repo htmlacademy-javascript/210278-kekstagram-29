@@ -1,5 +1,3 @@
-// TODO: надо рефакторить
-
 import {SLIDER_CONST_MAP} from './slider-const.js';
 import {setPost} from './api.js';
 import {validateStartSimbol, validateCorrectSimbol, validateUniqueValue, validateMaxCountValue} from './validate-functions.js';
@@ -23,11 +21,19 @@ const hiddenForm = () => {
 
   hiddenSlider();
 
+  const scaleValueElement = document.querySelector('.scale__control--value');
+
+  scaleValueElement.setAttribute('value', `${100}%`);
+  scaleValueElement.textContent = 100;
+
   onChangeEffect({value: 'none'}, sliderElement);
   form.reset();
 };
 
 const onSendSuccess = () => {
+  const submitButton = document.querySelector('.img-upload__submit');
+  submitButton.disabled = false;
+
   hiddenForm();
 };
 
@@ -85,6 +91,13 @@ const initUploadImg = () => {
     hiddenForm();
   });
 
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      hiddenForm();
+    }
+  });
+
   const hashtags = document.querySelector('.text__hashtags');
 
   hashtags.addEventListener('keydown', (evt) => {
@@ -118,6 +131,10 @@ const initUploadImg = () => {
     if (!isValid) {
       return;
     }
+
+    const submitButton = document.querySelector('.img-upload__submit');
+    submitButton.disabled = true;
+
 
     setPost(new FormData(evt.target), onSendSuccess);
   });

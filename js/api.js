@@ -1,5 +1,3 @@
-// TODO: надо рефакторить
-
 import {showSuccessNotification, showErrorNotification} from './notification.js';
 
 const ErrorText = {

@@ -1,5 +1,3 @@
-// TODO: надо рефакторить
-
 import {viewPicture} from './picture.js';
 
 const viewMiniatures = (objects) => {

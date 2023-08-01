@@ -1,5 +1,3 @@
-// TODO: надо рефакторить
-
 import {viewMiniatures} from './miniatures.js';
 
 const TIMEOUT_DELAY = 500;
@@ -32,19 +30,20 @@ const updateActiveStatus = (element) => {
   element.classList.add('img-filters__button--active');
 };
 
-const onDefaultFilterClick = (evt) => {
-  updateActiveStatus(evt.target);
+const viewFilterResult = (target, objects) => {
+  updateActiveStatus(target);
+  viewMiniatures(objects);
+}
 
-  viewMiniatures(savedObjects);
+const onDefaultFilterClick = (evt) => {
+  viewFilterResult(evt.target, savedObjects);
 };
 
 const onRandomFilterClick = (evt) => {
-  updateActiveStatus(evt.target);
-
   const randomizeObjects = savedObjects.slice(0, savedObjects.length);
   shuffleArray(randomizeObjects);
 
-  viewMiniatures(randomizeObjects.slice(0, RANDOM_COUNT));
+  viewFilterResult(evt.target, randomizeObjects.slice(0, RANDOM_COUNT));
 };
 
 const onDiscussedFilterClick = (evt) => {
@@ -61,9 +60,7 @@ const onDiscussedFilterClick = (evt) => {
     return 0;
   });
 
-  updateActiveStatus(evt.target);
-
-  viewMiniatures(sortedObjects);
+  viewFilterResult(evt.target, sortedObjects);
 };
 
 const viewFilter = (objects) => {
