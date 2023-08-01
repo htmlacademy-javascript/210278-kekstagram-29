@@ -1,17 +1,3 @@
-const onWindowClick = (evt, closeNotification) => {
-  if (!evt.target.closest('div')) {
-    closeNotification();
-  }
-};
-
-const onEscClick = (evt, closeNotification) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    evt.stopPropagation();
-    closeNotification();
-  }
-};
-
 const showSuccessNotification = () => {
   const template = document.querySelector('#success').content;
   const element = template.cloneNode(true);
@@ -23,17 +9,31 @@ const showSuccessNotification = () => {
     closeSuccessNotification();
   };
 
-  const closeSuccessNotification = () => {
+  const onWindowClick = (evt) => {
+    if (!evt.target.closest('div')) {
+      closeSuccessNotification();
+    }
+  };
+
+  const onEscClick = (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      evt.stopPropagation();
+      closeSuccessNotification();
+    }
+  };
+
+  function closeSuccessNotification() {
     successButton.removeEventListener('click', onCloseSuccessNotificationClick);
-    successElement.removeEventListener('click', onCloseSuccessNotificationClick);
+    window.removeEventListener('click', onWindowClick);
     document.addEventListener('keydown', onEscClick);
 
     successElement.remove();
   };
 
   successButton.addEventListener('click', onCloseSuccessNotificationClick);
-  window.addEventListener('click', (evt) => onWindowClick(evt, closeSuccessNotification));
-  document.addEventListener('keydown', (evt) => onEscClick(evt, closeSuccessNotification));
+  window.addEventListener('click', onWindowClick);
+  document.addEventListener('keydown', onEscClick);
 
   const docFragment = document.createDocumentFragment();
   docFragment.appendChild(element);
@@ -54,17 +54,31 @@ const showErrorNotification = (err) => {
     closeErrorNotification();
   };
 
-  const closeErrorNotification = () => {
+  const onWindowClick = (evt) => {
+    if (!evt.target.closest('div')) {
+      closeErrorNotification();
+    }
+  };
+
+  const onEscClick = (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      evt.stopPropagation();
+      closeErrorNotification();
+    }
+  };
+
+  function closeErrorNotification() {
     errorButton.removeEventListener('click', onCloseErrorNotificationClick);
-    errorElement.removeEventListener('click', onCloseErrorNotificationClick);
-    document.addEventListener('keydown', onEscClick, {capture: true});
+    window.removeEventListener('click', onWindowClick);
+    document.removeEventListener('keydown', onEscClick);
 
     errorElement.remove();
   };
 
   errorButton.addEventListener('click', onCloseErrorNotificationClick);
-  window.addEventListener('click', (evt) => onWindowClick(evt, closeErrorNotification));
-  document.addEventListener('keydown', (evt) => onEscClick(evt, closeErrorNotification), {capture: true});
+  window.addEventListener('click', onWindowClick);
+  document.addEventListener('keydown', onEscClick, {capture: true});
 
   const docFragment = document.createDocumentFragment();
   docFragment.appendChild(element);
