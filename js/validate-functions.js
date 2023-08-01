@@ -2,9 +2,7 @@ const START_SIMBOL = '#';
 const HASHTAG_REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COUNT_TAGS = 5;
 
-const splitString = (values) => {
-  return values.trim().split(' ').filter(value => value !== '');
-}
+const splitString = (values) => values.trim().split(' ').filter(value => value !== '');
 
 const validateStartSimbol = (values) => {
   const tags = splitString(values);

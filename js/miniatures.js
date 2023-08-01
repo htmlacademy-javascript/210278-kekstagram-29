@@ -2,7 +2,7 @@ import {viewPicture} from './picture.js';
 
 const removePicture = () => {
   const allPictures = document.querySelectorAll('.picture');
-  allPictures.forEach(picture => {
+  allPictures.forEach((picture) => {
     picture.remove();
   });
 };

@@ -40,18 +40,6 @@ const onSendSuccess = () => {
   hiddenForm();
 };
 
-const createSlider = () => {
-  noUiSlider.create(sliderElement, SLIDER_CONST_MAP.get(DEFAULT_EFFECT));
-
-  hiddenSlider();
-
-  const effectsRadios = document.querySelectorAll('.effects__radio');
-
-  effectsRadios.forEach(radio => {
-    radio.addEventListener('change', () => changeEffect(radio, sliderElement));
-  });
-};
-
 const changeEffect = (effectsRadio, sliderElement) => {
   const currentRadio = effectsRadio.value;
 
@@ -79,11 +67,23 @@ const changeEffect = (effectsRadio, sliderElement) => {
   });
 };
 
+const createSlider = () => {
+  noUiSlider.create(sliderElement, SLIDER_CONST_MAP.get(DEFAULT_EFFECT));
+
+  hiddenSlider();
+
+  const effectsRadios = document.querySelectorAll('.effects__radio');
+
+  effectsRadios.forEach((radio) => {
+    radio.addEventListener('change', () => changeEffect(radio, sliderElement));
+  });
+};
+
 const updateUploadFile = () => {
   const uploadFile = document.querySelector('#upload-file');
   const preview = document.querySelector('.img-upload__preview img');
   uploadFile.addEventListener('change', () => {
-      preview.src = URL.createObjectURL(uploadFile.files[0]);
+    preview.src = URL.createObjectURL(uploadFile.files[0]);
   });
 };
 

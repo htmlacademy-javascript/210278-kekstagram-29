@@ -23,7 +23,7 @@ const shuffleArray = (array) => {
 };
 
 const updateActiveStatus = (element) => {
-  allFilters.forEach(filter => {
+  allFilters.forEach((filter) => {
     filter.classList.remove('img-filters__button--active');
   });
 
@@ -33,7 +33,7 @@ const updateActiveStatus = (element) => {
 const viewFilterResult = (target, objects) => {
   updateActiveStatus(target);
   viewMiniatures(objects);
-}
+};
 
 const onDefaultFilterClick = (evt) => {
   viewFilterResult(evt.target, savedObjects);
