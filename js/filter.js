@@ -3,8 +3,6 @@ import {viewMiniatures} from './miniatures.js';
 const TIMEOUT_DELAY = 500;
 const RANDOM_COUNT = 10;
 
-const allFilters = document.querySelectorAll('.img-filters__button');
-
 let savedObjects = [];
 
 const debounce = (callback, timeoutDelay) => {
@@ -23,16 +21,17 @@ const shuffleArray = (array) => {
 };
 
 const updateActiveStatus = (element) => {
-  allFilters.forEach((filter) => {
-    filter.classList.remove('img-filters__button--active');
-  });
+  const activeElement = document.querySelector('.img-filters__button--active');
+  activeElement.classList.remove('img-filters__button--active');
 
   element.classList.add('img-filters__button--active');
 };
 
+const setDebounce = debounce(viewMiniatures, TIMEOUT_DELAY);
+
 const viewFilterResult = (target, objects) => {
   updateActiveStatus(target);
-  viewMiniatures(objects);
+  setDebounce(objects);
 };
 
 const onDefaultFilterClick = (evt) => {
@@ -71,11 +70,13 @@ const viewFilter = (objects) => {
   const RandomFilterButton = document.querySelector('#filter-random');
   const discussedFilterButton = document.querySelector('#filter-discussed');
 
-  filter.classList.remove('img-filters--inactive');
+  if(savedObjects !== undefined && savedObjects.length > 0) {
+    filter.classList.remove('img-filters--inactive');
+  }
 
-  defaultFilterButton.addEventListener('click', debounce(onDefaultFilterClick, TIMEOUT_DELAY));
-  RandomFilterButton.addEventListener('click', debounce(onRandomFilterClick, TIMEOUT_DELAY));
-  discussedFilterButton.addEventListener('click', debounce(onDiscussedFilterClick, TIMEOUT_DELAY));
+  defaultFilterButton.addEventListener('click', (env) => onDefaultFilterClick(env));
+  RandomFilterButton.addEventListener('click', (env) => onRandomFilterClick(env));
+  discussedFilterButton.addEventListener('click', (env) => onDiscussedFilterClick(env));
 };
 
 export {viewFilter};
