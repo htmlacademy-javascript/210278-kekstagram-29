@@ -11,6 +11,33 @@ const sliderElement = document.querySelector('.effect-level__slider');
 const preview = document.querySelector('.img-upload__preview');
 const submitButton = document.querySelector('.img-upload__submit');
 
+const changeEffect = (effectsRadio, slider) => {
+  const currentRadio = effectsRadio.value;
+
+  if(currentRadio === DEFAULT_EFFECT) {
+    document.querySelector('.img-upload__effect-level').classList.add('hidden');
+    preview.style.filter = '';
+    return;
+  }
+
+  document.querySelector('.img-upload__effect-level').classList.remove('hidden');
+
+  const options = SLIDER_CONST_MAP.get(currentRadio);
+
+  slider.noUiSlider.updateOptions(options);
+
+  const sliderValueElement = document.querySelector('.effect-level__value');
+
+  slider.noUiSlider.on('update', () => {
+    const val = parseFloat(slider.noUiSlider.get());
+
+    sliderValueElement.setAttribute('value', `${val}%`);
+    sliderValueElement.textContent = val;
+
+    preview.style.filter = `${options.filter}(${val}${options.unit})`;
+  });
+};
+
 const hiddenSlider = () => {
   preview.style.transform = '';
   document.querySelector('.img-upload__effect-level').classList.add('hidden');
@@ -40,33 +67,6 @@ const onSendSuccess = () => {
   hiddenForm();
 };
 
-const changeEffect = (effectsRadio, sliderElement) => {
-  const currentRadio = effectsRadio.value;
-
-  if(currentRadio === DEFAULT_EFFECT) {
-    document.querySelector('.img-upload__effect-level').classList.add('hidden');
-    preview.style.filter = '';
-    return;
-  }
-
-  document.querySelector('.img-upload__effect-level').classList.remove('hidden');
-
-  const options = SLIDER_CONST_MAP.get(currentRadio);
-
-  sliderElement.noUiSlider.updateOptions(options);
-
-  const sliderValueElement = document.querySelector('.effect-level__value');
-
-  sliderElement.noUiSlider.on('update', () => {
-    const val = parseFloat(sliderElement.noUiSlider.get());
-
-    sliderValueElement.setAttribute('value', `${val}%`);
-    sliderValueElement.textContent = val;
-
-    preview.style.filter = `${options.filter}(${val}${options.unit})`;
-  });
-};
-
 const createSlider = () => {
   noUiSlider.create(sliderElement, SLIDER_CONST_MAP.get(DEFAULT_EFFECT));
 
@@ -81,9 +81,9 @@ const createSlider = () => {
 
 const updateUploadFile = () => {
   const uploadFile = document.querySelector('#upload-file');
-  const preview = document.querySelector('.img-upload__preview img');
+  const previewImage = document.querySelector('.img-upload__preview img');
   uploadFile.addEventListener('change', () => {
-    preview.src = URL.createObjectURL(uploadFile.files[0]);
+    previewImage.src = URL.createObjectURL(uploadFile.files[0]);
   });
 };
 
