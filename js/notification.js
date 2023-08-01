@@ -29,7 +29,7 @@ const showSuccessNotification = () => {
     document.addEventListener('keydown', onEscClick);
 
     successElement.remove();
-  };
+  }
 
   successButton.addEventListener('click', onCloseSuccessNotificationClick);
   window.addEventListener('click', onWindowClick);
@@ -74,7 +74,7 @@ const showErrorNotification = (err) => {
     document.removeEventListener('keydown', onEscClick);
 
     errorElement.remove();
-  };
+  }
 
   errorButton.addEventListener('click', onCloseErrorNotificationClick);
   window.addEventListener('click', onWindowClick);
