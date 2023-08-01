@@ -3,10 +3,15 @@ import {setPost} from './api.js';
 import {validateStartSimbol, validateCorrectSimbol, validateUniqueValue, validateMaxCountValue} from './validate-functions.js';
 import {updateScale} from './image-scale.js';
 
+const DEFAULT_SCALE_SIZE = 100;
+const SCALE_STEP_SIZE = 25;
+const DEFAULT_EFFECT = 'none';
+
 const sliderElement = document.querySelector('.effect-level__slider');
+const preview = document.querySelector('.img-upload__preview');
+const submitButton = document.querySelector('.img-upload__submit');
 
 const hiddenSlider = () => {
-  const preview = document.querySelector('.img-upload__preview');
   preview.style.transform = '';
   document.querySelector('.img-upload__effect-level').classList.add('hidden');
 };
@@ -23,25 +28,34 @@ const hiddenForm = () => {
 
   const scaleValueElement = document.querySelector('.scale__control--value');
 
-  scaleValueElement.setAttribute('value', `${100}%`);
-  scaleValueElement.textContent = 100;
+  scaleValueElement.setAttribute('value', `${DEFAULT_SCALE_SIZE}%`);
+  scaleValueElement.textContent = DEFAULT_SCALE_SIZE;
 
-  onChangeEffect({value: 'none'}, sliderElement);
+  changeEffect({value: 'none'}, sliderElement);
   form.reset();
 };
 
 const onSendSuccess = () => {
-  const submitButton = document.querySelector('.img-upload__submit');
   submitButton.disabled = false;
-
   hiddenForm();
 };
 
-const onChangeEffect = (effectsRadio, sliderElement) => {
-  const preview = document.querySelector('.img-upload__preview');
+const createSlider = () => {
+  noUiSlider.create(sliderElement, SLIDER_CONST_MAP.get(DEFAULT_EFFECT));
+
+  hiddenSlider();
+
+  const effectsRadios = document.querySelectorAll('.effects__radio');
+
+  effectsRadios.forEach(radio => {
+    radio.addEventListener('change', () => changeEffect(radio, sliderElement));
+  });
+};
+
+const changeEffect = (effectsRadio, sliderElement) => {
   const currentRadio = effectsRadio.value;
 
-  if(currentRadio === 'none') {
+  if(currentRadio === DEFAULT_EFFECT) {
     document.querySelector('.img-upload__effect-level').classList.add('hidden');
     preview.style.filter = '';
     return;
@@ -65,6 +79,14 @@ const onChangeEffect = (effectsRadio, sliderElement) => {
   });
 };
 
+const updateUploadFile = () => {
+  const uploadFile = document.querySelector('#upload-file');
+  const preview = document.querySelector('.img-upload__preview img');
+  uploadFile.addEventListener('change', () => {
+      preview.src = URL.createObjectURL(uploadFile.files[0]);
+  });
+};
+
 const initUploadImg = () => {
   const loadButton = document.querySelector('.img-upload__input');
   const uploadEditor = document.querySelector('.img-upload__overlay');
@@ -75,11 +97,15 @@ const initUploadImg = () => {
   const scaleSmaller = document.querySelector('.scale__control--smaller');
   const scaleBigger = document.querySelector('.scale__control--bigger');
 
+  const hashtags = document.querySelector('.text__hashtags');
+  const comments = document.querySelector('.text__description');
+
+
   scaleSmaller.addEventListener('click', () => {
-    updateScale(-25);
+    updateScale(-SCALE_STEP_SIZE);
   });
   scaleBigger.addEventListener('click', () => {
-    updateScale(25);
+    updateScale(SCALE_STEP_SIZE);
   });
 
   loadButton.addEventListener('change', () => {
@@ -98,15 +124,12 @@ const initUploadImg = () => {
     }
   });
 
-  const hashtags = document.querySelector('.text__hashtags');
-
   hashtags.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.stopPropagation();
     }
   });
 
-  const comments = document.querySelector('.text__description');
   comments.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.stopPropagation();
@@ -132,33 +155,13 @@ const initUploadImg = () => {
       return;
     }
 
-    const submitButton = document.querySelector('.img-upload__submit');
     submitButton.disabled = true;
-
 
     setPost(new FormData(evt.target), onSendSuccess);
   });
 
-
-  noUiSlider.create(sliderElement, {
-    range: {min: 10, max: 50},
-    start: 10,
-  });
-
-  hiddenSlider();
-
-  const effectsRadios = document.querySelectorAll('.effects__radio');
-
-  for(let i = 0; i < effectsRadios.length; i++) {
-    effectsRadios[i].addEventListener('change', () => onChangeEffect(effectsRadios[i], sliderElement));
-  }
-
-  const uploadFile = document.querySelector('#upload-file');
-  const preview = document.querySelector('.img-upload__preview img');
-
-  uploadFile.addEventListener('change', () => {
-      preview.src = URL.createObjectURL(uploadFile.files[0]);
-  });
+  createSlider();
+  updateUploadFile();
 };
 
 export {initUploadImg};

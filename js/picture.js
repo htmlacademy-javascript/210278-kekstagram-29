@@ -1,25 +1,30 @@
-// TODO: надо рефакторить
+const PAGE_SIZE = 5;
+
 const socialComment = document.querySelector('.social__comment').cloneNode(true);
+const modal = document.querySelector('.big-picture');
+const body = document.querySelector('body');
+const commentsElement = document.querySelector('.social__comments');
+
+const closeModal = () => {
+  body.classList.remove('modal-open');
+  modal.classList.add('hidden');
+};
 
 const viewModal = () => {
-  const modal = document.querySelector('.big-picture');
-  const body = document.querySelector('body');
   const cancel = document.querySelector('.big-picture__cancel');
 
-  modal.classList.remove('hidden');
   body.classList.add('modal-open');
+  modal.classList.remove('hidden');
 
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      body.classList.remove('modal-open');
-      modal.classList.add('hidden');
+      closeModal();
     }
   });
 
   cancel.addEventListener('click', () => {
-    body.classList.remove('modal-open');
-    modal.classList.add('hidden');
+    closeModal();
   });
 };
 
@@ -38,23 +43,21 @@ const viewPicture = (currentObject) => {
   let visibleCount = 0;
 
   document.querySelector('.comments-loader').addEventListener('click', () => {
-    visibleCount = showBatchComments(currentObject, visibleCount);
+    visibleCount = viewBatchComments(currentObject, visibleCount);
     updateCommentStatistics(visibleCount, currentObject.comments.length);
   });
 
-  const commentsElement = document.querySelector('.social__comments');
-
   commentsElement.innerHTML = '';
-  visibleCount = showBatchComments(currentObject, 0);
+
+  visibleCount = viewBatchComments(currentObject, 0);
   updateCommentStatistics(visibleCount, currentObject.comments.length);
 };
 
-function showBatchComments(currentObject, startIndex) {
-  const pageSize = 5;
+function viewBatchComments(currentObject, startIndex) {
   let visibleCount = startIndex;
 
-  if(startIndex + pageSize <= currentObject.comments.length) {
-    visibleCount = startIndex + pageSize;
+  if(startIndex + PAGE_SIZE <= currentObject.comments.length) {
+    visibleCount = startIndex + PAGE_SIZE;
   } else {
     visibleCount = currentObject.comments.length;
   }
@@ -65,16 +68,16 @@ function showBatchComments(currentObject, startIndex) {
     const currentCommentElement = socialComment.cloneNode(true);
 
     const commentImg = currentCommentElement.querySelector('img');
+    const socialText = currentCommentElement.querySelector('.social__text');
+
     commentImg.setAttribute('src', currentObject.comments[j].avatar);
     commentImg.setAttribute('alt', currentObject.comments[j].name);
 
-    const socialText = currentCommentElement.querySelector('.social__text');
     socialText.textContent = currentObject.comments[j].message;
 
     fragment.appendChild(currentCommentElement);
   }
 
-  const commentsElement = document.querySelector('.social__comments');
   commentsElement.appendChild(fragment);
 
   return visibleCount;

@@ -23,9 +23,9 @@ const shuffleArray = (array) => {
 };
 
 const updateActiveStatus = (element) => {
-  for (let i = 0; i < allFilters.length; i++) {
-    allFilters[i].classList.remove('img-filters__button--active');
-  }
+  allFilters.forEach(filter => {
+    filter.classList.remove('img-filters__button--active');
+  });
 
   element.classList.add('img-filters__button--active');
 };
@@ -67,12 +67,11 @@ const viewFilter = (objects) => {
   savedObjects = objects;
 
   const filter = document.querySelector('.img-filters');
-
-  filter.classList.remove('img-filters--inactive');
-
   const defaultFilterButton = document.querySelector('#filter-default');
   const RandomFilterButton = document.querySelector('#filter-random');
   const discussedFilterButton = document.querySelector('#filter-discussed');
+
+  filter.classList.remove('img-filters--inactive');
 
   defaultFilterButton.addEventListener('click', debounce(onDefaultFilterClick, TIMEOUT_DELAY));
   RandomFilterButton.addEventListener('click', debounce(onRandomFilterClick, TIMEOUT_DELAY));

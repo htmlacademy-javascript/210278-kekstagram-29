@@ -1,5 +1,3 @@
-// TODO: надо рефакторить
-
 const showSuccessNotification = () => {
   const template = document.querySelector('#success').content;
   const element = template.cloneNode(true);
