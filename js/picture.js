@@ -10,7 +10,7 @@ let savedObjects = {};
 
 const onCommentsClick = () => {
   visibleCount = viewBatchComments(savedObjects, visibleCount);
-  updateCommentStatistics(visibleCount, savedObjects.comments.length);
+  updateCommentStatistics(savedObjects.comments.length);
 };
 
 const closeModal = () => {
@@ -60,7 +60,7 @@ const viewPicture = (currentObject) => {
   commentsElement.innerHTML = '';
 
   visibleCount = viewBatchComments(currentObject, 0);
-  updateCommentStatistics(visibleCount, currentObject.comments.length);
+  updateCommentStatistics(currentObject.comments.length);
 };
 
 function viewBatchComments(currentObject, startIndex) {
@@ -93,7 +93,7 @@ function viewBatchComments(currentObject, startIndex) {
   return visibleBatchCount;
 }
 
-function updateCommentStatistics(visibleCount, allCount) {
+function updateCommentStatistics(allCount) {
   const commentsLoader = document.querySelector('.comments-loader');
   if(visibleCount >= allCount) {
     commentsLoader.classList.add('hidden');
