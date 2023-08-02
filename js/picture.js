@@ -64,17 +64,17 @@ const viewPicture = (currentObject) => {
 };
 
 function viewBatchComments(currentObject, startIndex) {
-  let visibleCount = startIndex;
+  let visibleBatchCount = startIndex;
 
   if(startIndex + PAGE_SIZE <= currentObject.comments.length) {
-    visibleCount = startIndex + PAGE_SIZE;
+    visibleBatchCount = startIndex + PAGE_SIZE;
   } else {
-    visibleCount = currentObject.comments.length;
+    visibleBatchCount = currentObject.comments.length;
   }
 
   const fragment = document.createDocumentFragment();
 
-  for(let j = startIndex; j < visibleCount; j++) {
+  for(let j = startIndex; j < visibleBatchCount; j++) {
     const currentCommentElement = socialComment.cloneNode(true);
 
     const commentImg = currentCommentElement.querySelector('img');
@@ -90,7 +90,7 @@ function viewBatchComments(currentObject, startIndex) {
 
   commentsElement.appendChild(fragment);
 
-  return visibleCount;
+  return visibleBatchCount;
 }
 
 function updateCommentStatistics(visibleCount, allCount) {
