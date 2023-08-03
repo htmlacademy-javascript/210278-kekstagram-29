@@ -71,7 +71,7 @@ const showErrorNotification = (err) => {
   function closeErrorNotification() {
     errorButton.removeEventListener('click', onCloseErrorNotificationClick);
     window.removeEventListener('click', onWindowClick);
-    document.removeEventListener('keydown', onEscClick);
+    document.removeEventListener('keydown', onEscClick, {capture: true});
 
     errorElement.remove();
   }
